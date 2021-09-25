@@ -1,6 +1,7 @@
 package com.abcode.catalog.service;
 
 import com.abcode.catalog.dto.CategoryDTO;
+import com.abcode.catalog.entities.Category;
 import com.abcode.catalog.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +20,8 @@ public class CategoryService {
     }
 
 
+    public void save(CategoryDTO categoryDTO) {
+        Category category = Category.builder().name(categoryDTO.getName()).build();
+        categoryRepository.save(category);
+    }
 }

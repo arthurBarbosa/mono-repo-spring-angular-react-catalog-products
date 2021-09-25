@@ -2,11 +2,9 @@ package com.abcode.catalog.resources;
 
 import com.abcode.catalog.dto.CategoryDTO;
 import com.abcode.catalog.service.CategoryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -22,5 +20,11 @@ public class CategoryResource {
     public ResponseEntity<CategoryDTO> getById(@PathVariable Long id){
         var category = categoryService.getById(id);
         return ResponseEntity.ok().body(category);
+    }
+
+    @RequestMapping
+    public ResponseEntity<Void> save(@RequestBody CategoryDTO categoryDTO){
+        categoryService.save(categoryDTO);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
