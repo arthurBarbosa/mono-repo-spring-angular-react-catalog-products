@@ -1,6 +1,7 @@
 package com.abcode.catalog.resources;
 
 import com.abcode.catalog.dto.CategoryDTO;
+import com.abcode.catalog.entities.Category;
 import com.abcode.catalog.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,5 +27,10 @@ public class CategoryResource {
     public ResponseEntity<Void> save(@RequestBody CategoryDTO categoryDTO){
         categoryService.save(categoryDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody Category category){
+        return ResponseEntity.ok().body(categoryService.update(id, category));
     }
 }
