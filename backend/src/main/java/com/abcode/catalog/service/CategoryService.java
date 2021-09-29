@@ -6,6 +6,10 @@ import com.abcode.catalog.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CategoryService {
 
@@ -15,9 +19,9 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public CategoryDTO getById(Long id){
-       var category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Nenhuma categoria encontrada."));
-       return CategoryDTO.builder().id(category.getId()).name(category.getName()).build();
+    public CategoryDTO getById(Long id) {
+        var category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Nenhuma categoria encontrada."));
+        return CategoryDTO.builder().id(category.getId()).name(category.getName()).build();
     }
 
 
@@ -32,5 +36,11 @@ public class CategoryService {
         objCategory.setName(category.getName());
         CategoryDTO categoryDTO = CategoryDTO.builder().id(objCategory.getId()).name(objCategory.getName()).build();
         return categoryDTO;
+    }
+
+    public List<CategoryDTO> findAll() {
+        var list = categoryRepository.findAll();
+        List<CategoryDTO> dtoList = new ArrayList<>();
+        return list.stream().map(CategoryDTO::new).collect(Collectors.toList());
     }
 }

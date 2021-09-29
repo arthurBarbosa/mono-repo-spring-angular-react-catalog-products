@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryResource {
@@ -32,5 +34,10 @@ public class CategoryResource {
     @PutMapping(value = "/{id}")
     public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody Category category){
         return ResponseEntity.ok().body(categoryService.update(id, category));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryDTO>> findAll(){
+        return ResponseEntity.ok().body(categoryService.findAll());
     }
 }
