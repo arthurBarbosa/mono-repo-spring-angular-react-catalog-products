@@ -25,7 +25,7 @@ public class CategoryResource {
         return ResponseEntity.ok().body(category);
     }
 
-    @RequestMapping
+    @PostMapping
     public ResponseEntity<Void> save(@RequestBody CategoryDTO categoryDTO){
         categoryService.save(categoryDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

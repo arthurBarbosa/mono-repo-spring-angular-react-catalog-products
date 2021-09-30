@@ -3,6 +3,7 @@ package com.abcode.catalog.service;
 import com.abcode.catalog.dto.CategoryDTO;
 import com.abcode.catalog.entities.Category;
 import com.abcode.catalog.repositories.CategoryRepository;
+import com.abcode.catalog.service.exceptions.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,8 @@ public class CategoryService {
     }
 
     public CategoryDTO getById(Long id) {
-        var category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Nenhuma categoria encontrada."));
+        var category = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Nenhuma categoria encontrada."));
         return CategoryDTO.builder().id(category.getId()).name(category.getName()).build();
     }
 
