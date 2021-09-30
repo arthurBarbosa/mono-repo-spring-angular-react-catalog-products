@@ -4,6 +4,8 @@ import com.abcode.catalog.dto.CategoryDTO;
 import com.abcode.catalog.entities.Category;
 import com.abcode.catalog.repositories.CategoryRepository;
 import com.abcode.catalog.service.exceptions.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,9 +42,8 @@ public class CategoryService {
         return categoryDTO;
     }
 
-    public List<CategoryDTO> findAll() {
-        var list = categoryRepository.findAll();
-        List<CategoryDTO> dtoList = new ArrayList<>();
-        return list.stream().map(CategoryDTO::new).collect(Collectors.toList());
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+        var list = categoryRepository.findAll(pageRequest);
+        return list.map(CategoryDTO::new);
     }
 }
