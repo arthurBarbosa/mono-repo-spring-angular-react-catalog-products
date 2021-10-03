@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-title>Nova Categoria</mat-card-title>
+
+  <form class="flex-form">
+    <mat-form-field class="w50">
+      <input matInput placeholder="Nome" [(ngModel)]="category.name" name="name" />
+    </mat-form-field>
+  </form>
+
+  <button mat-raised-button color="primary" (click)="createCategories()">
+    <i class="material-icons">
+      add
+    </i>
+    Salvar
+  </button>
+</mat-card>
