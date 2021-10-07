@@ -1,5 +1,5 @@
 import { CategoryModel } from './category-model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -21,6 +21,15 @@ export class CategoryService {
       map(category => category),
       catchError(e => this.errorHandler(e))
     );
+  }
+
+  read(page, size): Observable<CategoryModel[]> {
+    const params = new HttpParams()
+    .set('page', page)
+    .set('linesPerPage', size)
+    return this.http.get<CategoryModel[]>(`${this.baseUrl}?${params.toString()}`).pipe(
+      map(obj => obj),
+    catchError(e => this.errorHandler(e)));
   }
 
   showMessage(msg: string, isError: boolean): void{

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,12 +15,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { HeaderComponent } from './components/template/header/header.component';
 import { FooterComponent } from './components/template/footer/footer.component';
 import { NavComponent } from './components/template/nav/nav.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CreateCategoriesComponent } from './components/categories/create-categories/create-categories.component';
+import { ReadCategoriesComponent } from './components/categories/read-categories/read-categories.component';
+
+import localept from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localept);
 
 @NgModule({
   declarations: [
@@ -31,6 +40,7 @@ import { CreateCategoriesComponent } from './components/categories/create-catego
     HomeComponent,
     CategoriesComponent,
     CreateCategoriesComponent,
+    ReadCategoriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +55,15 @@ import { CreateCategoriesComponent } from './components/categories/create-catego
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule 
   ],
-  providers: [],
+  providers: [{
+    provide: LOCALE_ID,
+    useValue: 'pt-BR'
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
