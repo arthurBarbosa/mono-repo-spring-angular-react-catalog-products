@@ -24,7 +24,7 @@ export class UpdateCategoriesComponent implements OnInit {
   updateCategories(){
     this.categoryService.update(this.category).subscribe(() => {
       this.categoryService.showMessage("Categoria alterada com sucesso", true);
-      this.router.navigate(['/categories'])
+      this.router.navigate(['/categories']);
     })
   }
 

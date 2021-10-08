@@ -36,7 +36,8 @@ public class CategoryService {
 
     @Transactional
     public CategoryDTO update(Long id, Category category) {
-        var objCategory = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Nenhuma categoria encontrada."));
+        var objCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Nenhuma categoria encontrada."));
         objCategory.setName(category.getName());
         CategoryDTO categoryDTO = CategoryDTO.builder().id(objCategory.getId()).name(objCategory.getName()).build();
         return categoryDTO;
@@ -45,5 +46,11 @@ public class CategoryService {
     public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
         var list = categoryRepository.findAll(pageRequest);
         return list.map(CategoryDTO::new);
+    }
+
+    public void deleteById(Long id) {
+        var objCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Nenhuma categoria encontrada."));
+        categoryRepository.deleteById(objCategory.getId());
     }
 }

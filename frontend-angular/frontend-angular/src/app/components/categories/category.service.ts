@@ -42,6 +42,11 @@ export class CategoryService {
     return this.http.put<CategoryModel>(url, category);
   }
 
+  delete(id: string): Observable<CategoryModel> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.delete<CategoryModel>(url);
+  }
+
   showMessage(msg: string, isError: boolean): void{
     this.snackBar.open(msg, 'X', {
       duration:3000, 

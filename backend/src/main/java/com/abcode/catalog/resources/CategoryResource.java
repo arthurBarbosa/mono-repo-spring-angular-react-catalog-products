@@ -51,4 +51,10 @@ public class CategoryResource {
 
         return ResponseEntity.ok().body(categoryService.findAllPaged(pageRequest));
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        this.categoryService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

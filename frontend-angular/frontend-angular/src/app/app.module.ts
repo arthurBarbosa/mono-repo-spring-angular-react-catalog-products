@@ -29,6 +29,7 @@ import { ReadCategoriesComponent } from './components/categories/read-categories
 import localept from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { UpdateCategoriesComponent } from './components/categories/update-categories/update-categories.component';
+import { DeleteCategoriesComponent } from './components/categories/delete-categories/delete-categories.component';
 
 registerLocaleData(localept);
 
@@ -43,6 +44,7 @@ registerLocaleData(localept);
     CreateCategoriesComponent,
     ReadCategoriesComponent,
     UpdateCategoriesComponent,
+    DeleteCategoriesComponent,
   ],
   imports: [
     BrowserModule,
