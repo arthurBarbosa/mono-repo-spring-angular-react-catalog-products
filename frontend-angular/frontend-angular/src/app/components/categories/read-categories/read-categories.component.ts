@@ -12,7 +12,7 @@ export class ReadCategoriesComponent implements OnInit {
 
   category: CategoryModel ;
   categories: CategoryModel[] = [];
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'action'];
 
   totalElements = 0;
   page = 0;

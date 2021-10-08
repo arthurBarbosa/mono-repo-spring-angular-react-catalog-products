@@ -32,6 +32,16 @@ export class CategoryService {
     catchError(e => this.errorHandler(e)));
   }
 
+  readById(id: string): Observable<CategoryModel>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.get<CategoryModel>(url);
+  }
+
+  update(category: CategoryModel): Observable<CategoryModel> {
+    const url = `${this.baseUrl}/${category.id}`;
+    return this.http.put<CategoryModel>(url, category);
+  }
+
   showMessage(msg: string, isError: boolean): void{
     this.snackBar.open(msg, 'X', {
       duration:3000, 
