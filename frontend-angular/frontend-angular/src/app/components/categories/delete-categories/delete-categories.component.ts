@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeleteCategoriesComponent implements OnInit {
   
-  category: CategoryModel;
+  category: CategoryModel = new CategoryModel();
   
   constructor(private categoryService:CategoryService,
               private router:Router, 
@@ -24,7 +24,7 @@ export class DeleteCategoriesComponent implements OnInit {
   }
 
   deleteCategory(){
-    this.categoryService.delete(this.category.id).subscribe(() => {
+    this.categoryService.delete(`${this.category.id}`).subscribe(() => {
       this.categoryService.showMessage("Categoria excluída com sucesso!", true);
       this.router.navigate(['/categories/all']);
     })
