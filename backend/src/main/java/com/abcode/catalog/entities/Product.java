@@ -1,9 +1,6 @@
 package com.abcode.catalog.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,8 +9,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
+@Setter
 @Entity(name = "tb_product")
 public class Product implements Serializable {
 
@@ -21,16 +21,16 @@ public class Product implements Serializable {
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Setter
+
     private String name;
-    @Setter
+
     @Column(columnDefinition = "TEXT")
     private String description;
-    @Setter
+
     private Double price;
-    @Setter
+
     private String imgUrl;
-    @Setter
+
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
 
