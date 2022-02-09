@@ -12,7 +12,8 @@ import java.util.Set;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
-@Entity(name = "tb_user")
+@Entity
+@Table(name = "tb_user")
 public class User {
 
     @Id
@@ -20,10 +21,11 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String email;
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
