@@ -3,6 +3,7 @@ package com.abcode.catalog.service;
 import com.abcode.catalog.dto.RoleDTO;
 import com.abcode.catalog.dto.UserDTO;
 import com.abcode.catalog.dto.UserInsertDTO;
+import com.abcode.catalog.dto.UserUpdateDTO;
 import com.abcode.catalog.entities.User;
 import com.abcode.catalog.repositories.RoleRepository;
 import com.abcode.catalog.repositories.UserRepository;
@@ -44,7 +45,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
         try {
             var entity = userRepository.getOne(id);
             copyDTOToEntity(dto, entity);

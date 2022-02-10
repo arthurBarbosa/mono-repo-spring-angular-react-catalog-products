@@ -3,6 +3,7 @@ package com.abcode.catalog.resources;
 import com.abcode.catalog.dto.ProductDTO;
 import com.abcode.catalog.dto.UserDTO;
 import com.abcode.catalog.dto.UserInsertDTO;
+import com.abcode.catalog.dto.UserUpdateDTO;
 import com.abcode.catalog.entities.User;
 import com.abcode.catalog.service.ProductService;
 import com.abcode.catalog.service.UserService;
@@ -43,7 +44,7 @@ public class UserResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto) {
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO dto) {
         return ResponseEntity.ok().body(userService.update(id, dto));
     }
 
