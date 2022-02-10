@@ -1,12 +1,14 @@
 package com.abcode.catalog.resources.exceptions;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.Instant;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Builder
 public class StandardError implements Serializable {
 
