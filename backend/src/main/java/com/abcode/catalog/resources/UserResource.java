@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @CrossOrigin("*")
@@ -34,7 +35,7 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody UserInsertDTO dto) {
+    public ResponseEntity<Void> save(@RequestBody @Valid UserInsertDTO dto) {
         userService.save(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -42,7 +43,7 @@ public class UserResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO dto) {
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto) {
         return ResponseEntity.ok().body(userService.update(id, dto));
     }
 
