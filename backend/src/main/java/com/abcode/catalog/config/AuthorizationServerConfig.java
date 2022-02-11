@@ -3,8 +3,10 @@ package com.abcode.catalog.config;
 import com.abcode.catalog.components.JwtTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -30,6 +32,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Value("${jwt.duration}")
     private Integer duration;
 
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -37,8 +42,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private JwtAccessTokenConverter accessTokenConverter;
 
-    @Autowired
-    private JwtTokenStore tokenStore;
+//    @Autowired
+//    private JwtTokenStore tokenStore;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -46,9 +51,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private JwtTokenEnhancer jwtTokenEnhancer;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll").checkTokenAccess("isAuthenticated()");
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
 
     @Override
@@ -57,7 +65,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient(clientId)
                 .secret(passwordEncoder.encode(clientSecret))
                 .scopes("read", "write")
-                .authorizedGrantTypes("password")
+                .authorizedGrantTypes("password", "refresh_token")
+                .refreshTokenValiditySeconds(duration)
                 .accessTokenValiditySeconds(duration);
     }
 
@@ -65,9 +74,25 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain chain = new TokenEnhancerChain();
         chain.setTokenEnhancers(Arrays.asList(accessTokenConverter, jwtTokenEnhancer));
-        endpoints.authenticationManager(authenticationManager)
-                .tokenStore(tokenStore)
+
+        endpoints
+                .authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService)
+                .tokenEnhancer(chain)
                 .accessTokenConverter(accessTokenConverter)
-                .tokenEnhancer(chain);
+                .tokenStore(tokenStore())
+                .reuseRefreshTokens(false);
+    }
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
+        tokenConverter.setSigningKey(jwtSecret);
+        return tokenConverter;
+    }
+
+    @Bean
+    public JwtTokenStore tokenStore() {
+        return new JwtTokenStore(accessTokenConverter());
     }
 }

@@ -6,9 +6,11 @@ import { HomeComponent } from './components/views/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { SecurityComponent } from './components/security/security.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'login', component: SecurityComponent},
   {path: 'categories', component: CategoriesComponent},
   {path: 'categories/create', component: CreateCategoriesComponent},
   {path: 'categories/all', component: ReadCategoriesComponent},

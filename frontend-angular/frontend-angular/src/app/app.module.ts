@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from  '@angular/material/sidenav';
@@ -18,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { HeaderComponent } from './components/template/header/header.component';
 import { FooterComponent } from './components/template/footer/footer.component';
@@ -30,6 +32,7 @@ import localept from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { UpdateCategoriesComponent } from './components/categories/update-categories/update-categories.component';
 import { DeleteCategoriesComponent } from './components/categories/delete-categories/delete-categories.component';
+import { SecurityComponent } from './components/security/security.component';
 
 registerLocaleData(localept);
 
@@ -45,6 +48,7 @@ registerLocaleData(localept);
     ReadCategoriesComponent,
     UpdateCategoriesComponent,
     DeleteCategoriesComponent,
+    SecurityComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,10 @@ registerLocaleData(localept);
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule 
+    MatSortModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
+     
   ],
   providers: [{
     provide: LOCALE_ID,
