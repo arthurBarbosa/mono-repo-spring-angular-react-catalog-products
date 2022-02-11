@@ -4,7 +4,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,6 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
 
 import { HeaderComponent } from './components/template/header/header.component';
 import { FooterComponent } from './components/template/footer/footer.component';
@@ -33,6 +34,8 @@ import { registerLocaleData } from '@angular/common';
 import { UpdateCategoriesComponent } from './components/categories/update-categories/update-categories.component';
 import { DeleteCategoriesComponent } from './components/categories/delete-categories/delete-categories.component';
 import { SecurityComponent } from './components/security/security.component';
+import { AuthGuardInterceptor } from './guards/auth.guard.interceptor';
+import { UsersComponent } from './components/users/users.component';
 
 registerLocaleData(localept);
 
@@ -49,6 +52,7 @@ registerLocaleData(localept);
     UpdateCategoriesComponent,
     DeleteCategoriesComponent,
     SecurityComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,13 +72,20 @@ registerLocaleData(localept);
     MatPaginatorModule,
     MatSortModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
      
   ],
   providers: [{
     provide: LOCALE_ID,
     useValue: 'pt-BR'
-  }],
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthGuardInterceptor,
+    multi: true
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,15 +7,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { SecurityComponent } from './components/security/security.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: SecurityComponent},
   {path: 'login', component: SecurityComponent},
-  {path: 'categories', component: CategoriesComponent},
-  {path: 'categories/create', component: CreateCategoriesComponent},
-  {path: 'categories/all', component: ReadCategoriesComponent},
-  {path: 'categories/update/:id', component: UpdateCategoriesComponent},
-  {path: 'categories/delete/:id', component: DeleteCategoriesComponent},
+  {path: 'categories', component: CategoriesComponent, canActivate:[AuthGuard]},
+  {path: 'categories/create', component: CreateCategoriesComponent, canActivate:[AuthGuard]},
+  {path: 'categories/all', component: ReadCategoriesComponent,  canActivate:[AuthGuard]},
+  {path: 'categories/update/:id', component: UpdateCategoriesComponent,  canActivate:[AuthGuard]},
+  {path: 'categories/delete/:id', component: DeleteCategoriesComponent, canActivate:[AuthGuard]},
   
 ];
 
