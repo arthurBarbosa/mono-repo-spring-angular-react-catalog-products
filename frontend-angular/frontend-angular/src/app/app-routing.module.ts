@@ -8,6 +8,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { SecurityComponent } from './components/security/security.component';
 import { AuthGuard } from './guards/auth.guard';
+import { UsersComponent } from './components/users/users.component';
+import { UsersCreateComponent } from './components/users/users-create/users-create.component';
 
 const routes: Routes = [
   {path: '', component: SecurityComponent},
@@ -17,6 +19,8 @@ const routes: Routes = [
   {path: 'categories/all', component: ReadCategoriesComponent,  canActivate:[AuthGuard]},
   {path: 'categories/update/:id', component: UpdateCategoriesComponent,  canActivate:[AuthGuard]},
   {path: 'categories/delete/:id', component: DeleteCategoriesComponent, canActivate:[AuthGuard]},
+  {path: 'users', component: UsersComponent, canActivate:[AuthGuard]},
+  {path: 'users/create', component: UsersCreateComponent},
   
 ];
 

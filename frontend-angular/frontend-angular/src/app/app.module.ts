@@ -36,6 +36,8 @@ import { DeleteCategoriesComponent } from './components/categories/delete-catego
 import { SecurityComponent } from './components/security/security.component';
 import { AuthGuardInterceptor } from './guards/auth.guard.interceptor';
 import { UsersComponent } from './components/users/users.component';
+import { UsersCreateComponent } from './components/users/users-create/users-create.component';
+
 
 registerLocaleData(localept);
 
@@ -53,6 +55,7 @@ registerLocaleData(localept);
     DeleteCategoriesComponent,
     SecurityComponent,
     UsersComponent,
+    UsersCreateComponent,
   ],
   imports: [
     BrowserModule,
