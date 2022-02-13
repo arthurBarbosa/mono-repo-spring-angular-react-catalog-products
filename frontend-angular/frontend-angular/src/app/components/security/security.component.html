@@ -1,0 +1,52 @@
+
+<mat-card>
+    <div class="example-loading-shade example-loading" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    
+ 
+ 
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="loginForm"  (ngSubmit)="onFormSubmit()">
+            <p>
+                <mat-form-field>
+                    <input type="text" 
+                    matInput 
+                    placeholder="E-mail"
+                    formControlName="username"
+                    [errorStateMatcher]="matcher">
+
+                    <mat-error>
+                        <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter Username</span>
+                    </mat-error>
+                </mat-form-field>
+            </p>
+           
+            <p>
+                <mat-form-field>
+                <input type="password" 
+                        matInput 
+                        placeholder="Senha" 
+                        formControlName="password">
+
+                        <mat-error>
+                            <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please enter Password</span>
+                        </mat-error>
+                </mat-form-field>
+            </p>
+
+            <div class="button-row button">                
+                <button type="submit" [disabled]="!loginForm.valid" mat-flat-button color="primary"> <mat-icon>login</mat-icon>Login</button>
+            </div>
+            
+            
+            <div class=" button">
+                <h4 style="padding-right: 25px;">Don't have an account?</h4>
+                <a mat-flat-button color="primary" [routerLink]="['/users/create']"><mat-icon>how_to_reg</mat-icon>Register</a>
+            </div>
+          
+            <div #coverspin id="cover-spin"></div>
+        </form>
+    </mat-card-content>
+</mat-card> 

@@ -1,0 +1,48 @@
+
+<mat-card >
+    <form  [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+        <h2>Cadastro Usuário</h2>
+        <mat-form-field class="example-full-width">
+            <label for="">
+                <input matInput placeholder="First name" formControlName="firstName"
+                [errorStateMatcher]="matcher">
+            </label>
+            <mat-error>
+                <span *ngIf="!registerForm.get('firstName').valid && registerForm.get('firstName').touched">Please enter first name</span>
+              </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <label for="">
+                <input matInput placeholder="Last name" formControlName="lastName"
+                [errorStateMatcher]="matcher">
+            </label>
+            <mat-error>
+                <span *ngIf="!registerForm.get('lastName').valid && registerForm.get('lastName').touched">Please enter last name</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <label for="">
+                <input matInput placeholder="E-mail" formControlName="email"
+                [errorStateMatcher]="matcher">
+            </label>
+            <mat-error>
+                <span *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched">Please enter e-mail</span>
+              </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <label for="">
+                <input matInput placeholder="Password" formControlName="password"
+                [errorStateMatcher]="matcher">
+            </label>
+            <mat-error>
+                <span *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">Please enter password</span>
+              </mat-error>
+        </mat-form-field>
+
+        <div class="button-row">
+            <button type="submit" [disabled]="!registerForm.valid" mat-flat-button color="primary"><mat-icon>how_to_reg</mat-icon>Register</button>
+        </div>
+    </form>
+</mat-card>
