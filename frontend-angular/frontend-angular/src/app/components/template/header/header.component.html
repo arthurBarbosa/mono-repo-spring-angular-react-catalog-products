@@ -1,4 +1,17 @@
-<mat-toolbar class="header mat-elevation-z4">
+
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-spinner style="top: 50%; left: 50%;"></mat-spinner>
+</div> 
+
+
+<mat-toolbar color="primary" class="header mat-elevation-z4 sidenav-container"  [ngClass]="{'dark-theme-mode':isDarkTheme}">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+  
+  aa
+  </mat-sidenav>
+  
   <span>
     <a>
       <img class="logo" src="" alt="">
@@ -12,6 +25,14 @@
       Aplicação Catalago
     </a>
   </span>
-
+ 
+  <span style="flex:auto;"></span>
+  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav button toggle icon">menu</mat-icon>
+      </button>
+  <mat-slide-toggle  [(ngModel)]="isDarkTheme"  labelPosition="before" (change)="storeThemeSelection()">
+    <mat-icon>bedtime</mat-icon>
+  </mat-slide-toggle>
  
 </mat-toolbar>

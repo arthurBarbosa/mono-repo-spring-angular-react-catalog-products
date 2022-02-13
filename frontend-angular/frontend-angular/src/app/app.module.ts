@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { HeaderComponent } from './components/template/header/header.component';
 import { FooterComponent } from './components/template/footer/footer.component';
@@ -37,7 +38,8 @@ import { SecurityComponent } from './components/security/security.component';
 import { AuthGuardInterceptor } from './guards/auth.guard.interceptor';
 import { UsersComponent } from './components/users/users.component';
 import { UsersCreateComponent } from './components/users/users-create/users-create.component';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { InterceptorService } from './components/loader/interceptor.service';
 
 registerLocaleData(localept);
 
@@ -76,7 +78,9 @@ registerLocaleData(localept);
     MatSortModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule,
+    MatSlideToggleModule
      
   ],
   providers: [{
@@ -86,6 +90,11 @@ registerLocaleData(localept);
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthGuardInterceptor,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
     multi: true
   }
 ],

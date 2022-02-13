@@ -8,10 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @CrossOrigin("*")
 @RestController
@@ -31,7 +30,7 @@ public class CategoryResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<Void> save(@RequestBody @Valid CategoryDTO categoryDTO) {
         categoryService.save(categoryDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
