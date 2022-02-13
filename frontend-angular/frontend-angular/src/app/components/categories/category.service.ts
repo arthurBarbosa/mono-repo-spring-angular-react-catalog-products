@@ -44,7 +44,10 @@ export class CategoryService {
 
   delete(id: string): Observable<CategoryModel> {
     const url = `${this.baseUrl}/${id}`;
-    return this.http.delete<CategoryModel>(url);
+    return this.http.delete<CategoryModel>(url).pipe(
+      map(obj => obj),
+      catchError(e => this.errorHandler(e))
+    );
   }
 
   showMessage(msg: string, isError: boolean): void{
@@ -57,7 +60,7 @@ export class CategoryService {
   }
 
   errorHandler(e: any): Observable<any>{
-    this.showMessage(e.error.message, true);
+    this.showMessage(e.error.errors[0].message, true);
     return EMPTY;
   }
 }
