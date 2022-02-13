@@ -18,7 +18,10 @@ export class CategoryService {
 
   create(category: CategoryModel): Observable<CategoryModel>{
     return this.http.post<CategoryModel>(this.baseUrl, category).pipe(
-      map(category => category),
+      map(category => {
+        category
+        this.showMessage('Categoria salva com sucesso!', false);
+      }),
       catchError(e => this.errorHandler(e))
     );
   }

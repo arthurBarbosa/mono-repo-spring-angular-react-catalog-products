@@ -33,7 +33,7 @@ public class ResourceExceptionHandler {
                 .timestamp(Instant.now())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error("Data integrity")
-                .message(e.getMessage())
+                .message(e.getCause().getMessage())
                 .path(request.getRequestURI())
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
